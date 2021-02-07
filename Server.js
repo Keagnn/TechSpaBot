@@ -4,7 +4,7 @@ require('dotenv').config()
 //Require certain NPM Packages.. and folders
 const fs = require('fs');
 const Discord = require('discord.js');
-const site = require('./site');
+
 
 //Initiate 
 const client = new Discord.Client();
@@ -52,12 +52,12 @@ client.on("message", function (msg) {
     } catch (error) {
         console.log(error);
     }
-    for (var response in botResponses) {
+    for (let response in botResponses) {
         botResponses[response].command(client, msg, botResponses);
     }
 });
 
-bot.on('ready', () => {
+client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
