@@ -77,6 +77,6 @@ client.on('message', message => {
 });
 
 client.login(process.env.token);
-//console.log(token);
+//console.log(token)t;
 
 process.on('unhandledRejection', console.error);
