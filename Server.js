@@ -1,64 +1,39 @@
-//Initiate dotenv npm
-require('dotenv').config()
-
-//Require certain NPM Packages.. and folders
 const fs = require('fs');
 const Discord = require('discord.js');
+const {
+    prefix,
+    token
+} = require('./config.json');
 
-
-//Initiate 
 const client = new Discord.Client();
-const token = process.env.DISCORD_TOKEN;
+client.commands = new Discord.Collection();
 
-//Login to server
-client.login(token);
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-//Set up commands directory variable
-const commandsDir = './Commands/';
-var botResponses = {};
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
+}
 
-//Access Commands Directory
-fs.readdir(commandsDir, function (err, files) {
-    files.forEach(function (file) {
-        try {
-            responses[file] = require(commandsDir + file);
-        } catch (e) {}
-    });
-});
-
-//Tell bot to listen for messages
-client.on("message", function (msg) {
-    try {
-        var now = new Date().toLocaleString();
-        var messageLog = [];
-        if (msg.channel.name) {
-            messageLog = [
-                msg.channel.guild.name,
-                ' #' + msg.channel.name,
-                '[' + msg.channel.id + ']:',
-                now,
-                msg.author.username + ': ',
-                msg.content
-            ];
-        } else {
-            messageLog = [
-                'PM#: ',
-                now,
-                msg.author.username + ': ',
-                msg.content
-            ];
-        }
-
-    } catch (error) {
-        console.log(error);
-    }
-    for (let response in botResponses) {
-        botResponses[response].command(client, msg, botResponses);
-    }
-});
-
-client.on('ready', () => {
+client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
+
+client.on('message', message => {
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+
+    if (!client.commands.has(command)) return;
+
+    try {
+        client.commands.get(command).execute(message, args);
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+client.login(token);
 
 process.on('unhandledRejection', console.error);
