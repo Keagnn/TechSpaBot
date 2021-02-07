@@ -1,7 +1,9 @@
 require('dotenv').config();
 const fs = require('fs');
 const Discord = require('discord.js');
-const prefix = require('./config.json');
+const {
+	prefix,
+} = require('./config.json');
 
 const cooldowns = new Discord.Collection();
 
@@ -77,6 +79,5 @@ client.on('message', message => {
 });
 
 client.login(process.env.token);
-//console.log(token)t;
 
 process.on('unhandledRejection', console.error);
