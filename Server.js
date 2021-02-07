@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const Discord = require('discord.js');
 const {
@@ -79,5 +80,6 @@ client.on('message', message => {
 });
 
 client.login(process.env.token);
+//console.log(token);
 
 process.on('unhandledRejection', console.error);
