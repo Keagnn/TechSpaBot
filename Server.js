@@ -58,7 +58,7 @@ client.on("message", function (msg) {
 });
 
 bot.on('ready', () => {
-    console.log('TechSpa Bot Booted up!');
+    console.log(`Logged in as ${client.user.tag}!`);
 });
 
 process.on('unhandledRejection', console.error);
