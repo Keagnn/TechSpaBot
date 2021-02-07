@@ -16,7 +16,11 @@ module.exports = {
             "How do you make holy water? \n ||You boil the hell out of it!||",
             "What did the horse say after it tripped? \n ||Help! I’ve fallen and I can’t giddyup!||",
             "What do you call a masturbating cow? \n ||Beef Stroganoff!||",
-            "How many tickles does it take to make an octopus laugh? \n ||Ten-tickles!||"
+            "How many tickles does it take to make an octopus laugh? \n ||Ten-tickles!||",
+            "This graveyard looks overcrowded. People must be dying to get in.",
+            "It takes guts to be an organ donor.",
+            "I'm so good at sleeping, I can do it with my eyes closed!",
+            "I wouldn't buy anything with velcro. It's a total rip-off."
         ];
         var random = Math.floor(Math.random() * jokes.length);
         var msg = jokes[random];
