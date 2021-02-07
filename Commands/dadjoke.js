@@ -1,6 +1,8 @@
 module.exports = {
 	name: 'dadjoke',
 	description: 'Send a dad joke!',
+	args: true,
+	usage: '', // blank because this does not take arguments
 	execute(message) {
 		const jokes = [
 			'What do you call a fake noodle?\n ||an Impasta!||',
